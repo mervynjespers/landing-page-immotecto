@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immotecto - Tout l'immobilier sous un même toit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0D1117;
+            --bg-secondary: #161B22;
+            --bg-card: #1C2128;
+            --cyan: #00D4FF;
+            --magenta: #B24BF3;
+            --text-primary: #FFFFFF;
+            --text-secondary: #8B949E;
+            --gradient: linear-gradient(135deg, #00D4FF 0%, #B24BF3 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--bg-card);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--cyan);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 5% 4rem;
+            background: radial-gradient(ellipse at center top, rgba(178, 75, 243, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at center bottom, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-logo {
+            margin-bottom: 2rem;
+        }
+
+        .hero-logo img {
+            height: 120px;
+            width: auto;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--cyan);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            color: var(--cyan);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Problem Section */
+        .problem {
+            background: var(--bg-secondary);
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .comparison-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+
+        .comparison-card.before {
+            border: 2px solid rgba(255, 100, 100, 0.3);
+        }
+
+        .comparison-card.after {
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.1);
+        }
+
+        .comparison-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-card.before h3 {
+            color: #ff6b6b;
+        }
+
+        .comparison-card.after h3 {
+            color: var(--cyan);
+        }
+
+        .comparison-card ul {
+            list-style: none;
+        }
+
+        .comparison-card li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .comparison-card.before li::before {
+            content: '✗';
+            color: #ff6b6b;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .comparison-card.after li::before {
+            content: '✓';
+            color: var(--cyan);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .comparison-arrow {
+            font-size: 3rem;
+            color: var(--magenta);
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--bg-primary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Products Section */
+        .products {
+            background: var(--bg-secondary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card img {
+            max-width: 260px;
+            height: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .product-badge {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Journey Section */
+        .journey {
+            background: var(--bg-primary);
+        }
+
+        .journey-timeline {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .journey-step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .journey-step::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            right: -50%;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient);
+            z-index: 0;
+        }
+
+        .journey-step:last-child::after {
+            display: none;
+        }
+
+        .journey-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-card);
+            border: 3px solid;
+            border-image: var(--gradient) 1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+            position: relative;
+            z-index: 1;
+            background: var(--bg-primary);
+        }
+
+        .journey-step h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--cyan);
+        }
+
+        .journey-step p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Target Section */
+        .target {
+            background: var(--bg-secondary);
+        }
+
+        .target-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .target-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .target-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .target-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .target-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .target-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(178, 75, 243, 0.1) 100%);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .cta-form input,
+        .cta-form select {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--bg-card);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .cta-form select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238B949E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.25rem;
+            padding-right: 3rem;
+        }
+
+        .cta-form select option {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .cta-form input:focus,
+        .cta-form select:focus {
+            outline: none;
+            border-color: var(--cyan);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid var(--bg-card);
+        }
+
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tagline {
+            color: var(--cyan);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-copyright {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-logo img {
+                height: 80px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-arrow {
+                transform: rotate(90deg);
+            }
+
+            .services-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .target-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-timeline {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .journey-step::after {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .product-card img {
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">
+            <img src="assets/Immotecto juste logo.png" alt="Immotecto">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#produits">Produits</a></li>
+            <li><a href="#pour-qui">Pour qui</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#contact" class="btn-primary">Accès anticipé</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-logo">
+                <img src="assets/Immotecto normale.png" alt="Immotecto">
+            </div>
+            <p class="tagline">Tout l'immobilier sous un même toit</p>
+            <h1>Une seule plateforme pour <span>tous vos besoins immobiliers</span></h1>
+            <p>Diffusion d'annonces, gestion locative, outils digitaux pour agents : fini les abonnements multiples et la paperasse. Immotecto réunit tout en un seul endroit.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">Je suis professionnel</a>
+                <a href="#contact" class="btn-secondary">Je suis particulier</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="section-header">
+            <p class="section-label">Le constat</p>
+            <h2 class="section-title">L'immobilier mérite mieux</h2>
+        </div>
+        <div class="comparison">
+            <div class="comparison-card before">
+                <h3>Avant Immotecto</h3>
+                <ul>
+                    <li>Un abonnement pour diffuser vos annonces</li>
+                    <li>Un autre abonnement pour votre CRM de gestion</li>
+                    <li>Des tonnes de documents papier</li>
+                    <li>Des dossiers locataires jamais complets</li>
+                    <li>Des outils dispersés, jamais connectés</li>
+                    <li>Du temps perdu à jongler entre les plateformes</li>
+                </ul>
+            </div>
+            <div class="comparison-arrow">→</div>
+            <div class="comparison-card after">
+                <h3>Avec Immotecto</h3>
+                <ul>
+                    <li>Une seule plateforme, un seul abonnement</li>
+                    <li>Diffusion + CRM + outils intégrés</li>
+                    <li>100% digitalisé, zéro paperasse</li>
+                    <li>Dossiers complets et vérifiés automatiquement</li>
+                    <li>Tous les services connectés entre eux</li>
+                    <li>Un gain de temps considérable au quotidien</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <p class="section-label">Nos services</p>
+            <h2 class="section-title">Tout ce dont vous avez besoin</h2>
+            <p class="section-subtitle">Une suite complète d'outils pour les professionnels et particuliers de l'immobilier</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📢</div>
+                <h3>Diffusion d'annonces</h3>
+                <p>Publiez vos biens en vente ou en location sur notre plateforme. Touchez des locataires et acheteurs qualifiés.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>CRM de gestion locative</h3>
+                <p>Gérez vos baux, quittances, états des lieux et paiements depuis une interface unique et intuitive.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>Outils digitaux terrain</h3>
+                <p>États des lieux numériques, signatures électroniques, documents dématérialisés. Fini le papier pour vos agents.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📁</div>
+                <h3>Dossiers locataires complets</h3>
+                <p>Des dossiers vérifiés et toujours complets grâce à notre système de collecte automatisé.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="produits">
+        <div class="section-header">
+            <p class="section-label">Avant-première</p>
+            <h2 class="section-title">Nos innovations</h2>
+            <p class="section-subtitle">Des outils exclusifs qui changent la donne</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <span class="product-badge">Avant-première</span>
+                <img src="assets/Tecto score Logo avec nom.png" alt="Tecto Score">
+                <h3>Le score de fiabilité locative</h3>
+                <p>Un score basé uniquement sur l'historique réel de paiement des loyers, vérifié via l'Open Banking. La confiance, prouvée par les données.</p>
+            </div>
+            <div class="product-card">
+                <span class="product-badge">Avant-première</span>
+                <img src="assets/Tecto Market Logo metier avec nom.png" alt="Tecto Market">
+                <h3>L'écosystème des métiers</h3>
+                <p>Connectez-vous à tous les professionnels de l'immobilier : notaires, déménageurs, photographes, artisans, banques. Tout sous un même toit.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section class="journey">
+        <div class="section-header">
+            <p class="section-label">Le parcours</p>
+            <h2 class="section-title">Du locataire à l'acheteur</h2>
+            <p class="section-subtitle">Immotecto vous accompagne à chaque étape de votre vie immobilière</p>
+        </div>
+        <div class="journey-timeline">
+            <div class="journey-step">
+                <div class="journey-icon">🔍</div>
+                <h4>Recherche</h4>
+                <p>Trouvez votre logement idéal</p>
+            </div>
+            <div class="journey-step">
+                <div class="journey-icon">📝</div>
+                <h4>Location</h4>
+                <p>Constituez votre dossier en un clic</p>
+            </div>
+            <div class="journey-step">
+                <div class="journey-icon">🏠</div>
+                <h4>Gestion</h4>
+                <p>Gérez votre bail simplement</p>
+            </div>
+            <div class="journey-step">
+                <div class="journey-icon">⭐</div>
+                <h4>Score</h4>
+                <p>Construisez votre Tecto Score</p>
+            </div>
+            <div class="journey-step">
+                <div class="journey-icon">🔑</div>
+                <h4>Achat</h4>
+                <p>Devenez propriétaire</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Section -->
+    <section class="target" id="pour-qui">
+        <div class="section-header">
+            <p class="section-label">Pour qui ?</p>
+            <h2 class="section-title">Une plateforme pour tous</h2>
+        </div>
+        <div class="target-grid">
+            <div class="target-card">
+                <div class="target-icon">🏢</div>
+                <h3>Agences immobilières</h3>
+                <p>Simplifiez votre quotidien avec une plateforme tout-en-un. Fini les multiples abonnements.</p>
+            </div>
+            <div class="target-card">
+                <div class="target-icon">🔑</div>
+                <h3>Propriétaires bailleurs</h3>
+                <p>Gérez vos biens et trouvez des locataires fiables grâce au Tecto Score.</p>
+            </div>
+            <div class="target-card">
+                <div class="target-icon">👤</div>
+                <h3>Locataires & Acheteurs</h3>
+                <p>Un parcours simplifié de la recherche à l'achat. Votre dossier enfin complet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <h2>Rejoignez la révolution</h2>
+        <p>Soyez parmi les premiers à découvrir Immotecto</p>
+        <form class="cta-form" id="signup-form">
+            <div class="form-group">
+                <label for="profile">Je suis</label>
+                <select id="profile" name="profile" required>
+                    <option value="" disabled selected>Sélectionnez votre profil</option>
+                    <option value="Locataire">Locataire</option>
+                    <option value="Futur acheteur">Futur acheteur</option>
+                    <option value="Propriétaire privé">Propriétaire privé</option>
+                    <option value="Agence immobilière">Agence immobilière</option>
+                    <option value="SCI">SCI</option>
+                    <option value="Futur partenaire">Futur partenaire</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
+            </div>
+            <button type="submit" class="btn-primary btn-submit" id="submit-btn">Je m'inscris</button>
+        </form>
+        <div id="success-message" style="display: none; margin-top: 1.5rem;">
+            <p style="color: var(--cyan); font-size: 1.1rem; font-weight: 500;">Merci ! Vous êtes inscrit(e) à la liste d'attente.</p>
+        </div>
+    </section>
+
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcU8p42gjzPV91LLeZ2gq0r5mpsTMOF02W18LrqWgmdYnnLwvCSQ-SmyAgepU23gqM/exec';
+
+        document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submit-btn');
+            const form = document.getElementById('signup-form');
+            const successMessage = document.getElementById('success-message');
+
+            const profile = document.getElementById('profile').value;
+            const email = document.getElementById('email').value;
+
+            submitBtn.textContent = 'Envoi en cours...';
+            submitBtn.disabled = true;
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ profile, email })
+                });
+
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+
+            } catch (error) {
+                submitBtn.textContent = 'Je m\'inscris';
+                submitBtn.disabled = false;
+                alert('Une erreur est survenue. Veuillez réessayer.');
+            }
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">
+            <img src="assets/Immotecto juste le nom.png" alt="Immotecto">
+        </div>
+        <p class="footer-tagline">Tout l'immobilier sous un même toit</p>
+        <div class="footer-links">
+            <a href="#">Belgique</a>
+            <a href="#">France</a>
+            <a href="mailto:contact@immotecto.com">contact@immotecto.com</a>
+        </div>
+        <p class="footer-copyright">© 2026 Immotecto. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
